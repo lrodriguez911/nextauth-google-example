@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import {signIn, useSession} from "next-auth/react";
+import {signIn, useSession, signOut} from "next-auth/react";
 import Image from 'next/image'
 
 // Navbar
@@ -21,6 +21,9 @@ function Navbar() {
             </Link>
             <p>{session.user.name} {session.user.email}</p>
             <Image src={session.user.image}  width="100" height="100" alt="user image" />
+            <button onClick={() => signOut()} className='bg-sky-400 px-3 py-2 rounded'>
+                Sign Out
+            </button>
         </div>) : ( <button onClick={() => signIn()} className='bg-sky-400 px-3 py-2 rounded'>
                 Sign In
             </button>)}
