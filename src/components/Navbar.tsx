@@ -2,7 +2,9 @@
 
 import Link from 'next/link'
 import {signIn, useSession} from "next-auth/react";
+import Image from 'next/image'
 
+// Navbar
 function Navbar() {
 
   const {data: session} = useSession();
@@ -13,14 +15,15 @@ function Navbar() {
         <h1>NextGoogle</h1>
         </Link>
 
-        <div className='flex gap-x-2 items-center'>
+        {session?.user ? (<div className='flex gap-x-2 items-center'>
             <Link href="/dashboard">
             Dashboard
             </Link>
-            <button onClick={() => signIn()} className='bg-sky-400 px-3 py-2 rounded'>
+            <p>{session.user.name} {session.user.email}</p>
+            <Image src={session.user.image}  width="100" height="100" alt="user image" />
+        </div>) : ( <button onClick={() => signIn()} className='bg-sky-400 px-3 py-2 rounded'>
                 Sign In
-            </button>
-        </div>
+            </button>)}
     </nav>
   )
 }
